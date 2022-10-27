@@ -1,13 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-
+const db_connect = require("./configs/dbConfig");
+const postRouter = require("./routes/posts");
 const server_port = process.env.PORT || 5000;
 
 //db config
+db_connect();
 
 //midlewares
-app.use(express.json());
+app.use(express.json({ limit: "30mb", extended: true }));
+app.use(express.urlencoded({ limit: "30mb", extended: true }));
+app.use("/posts", postRouter);
 
 //routes
 

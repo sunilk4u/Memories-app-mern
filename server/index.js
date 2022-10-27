@@ -18,7 +18,6 @@ app.use("/posts", postRouter);
 //server online response
 app.get("/", (req, res) => {
   res.status(200).json({
-    status: 200,
     message: "server is up and running",
   });
 });
@@ -26,7 +25,6 @@ app.get("/", (req, res) => {
 //request did not match any endpoint/route
 app.all("*", (req, res) => {
   res.status(404).json({
-    status: 200,
     message: "resource not found",
   });
 });

@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const db_connect = require("./configs/dbConfig");
 const postRouter = require("./routes/posts");
 const server_port = process.env.PORT || 5000;
@@ -9,6 +10,12 @@ const server_port = process.env.PORT || 5000;
 db_connect();
 
 //midlewares
+app.use(
+  cors({
+    origin: process.env.CLIENT_URI,
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/posts", postRouter);

@@ -1,7 +1,10 @@
-import axios from "axios"
+import axios from "axios";
 
 //posts api url
-const url = `${process.env.REACT_APP_API_URI}/posts/`
+const url = `${process.env.REACT_APP_API_URI}/posts/`;
 
 //fetch all posts
 export const fetchPosts = () => axios.get(url);
+
+//create a post
+export const createPost = (newPost) => axios.post(url, newPost);

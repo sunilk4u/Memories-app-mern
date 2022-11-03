@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../../../actions/posts";
+import { deletePost, likePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
@@ -21,8 +21,13 @@ const Post = ({ post, setCurrentId }) => {
 
   //handle post delete
   const handleDelete = () => {
-    dispatch(deletePost(post._id))
-  }
+    dispatch(deletePost(post._id));
+  };
+
+  //handle post like
+  const handlePostLike = () => {
+    dispatch(likePost(post._id));
+  };
 
   return (
     <Card className={classes.card}>
@@ -60,7 +65,7 @@ const Post = ({ post, setCurrentId }) => {
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handlePostLike}>
           <ThumbUpAltIcon fontSize="small" />
           Like
           {post.likeCount}

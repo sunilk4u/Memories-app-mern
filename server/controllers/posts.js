@@ -28,7 +28,7 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   const { id: _id } = req.params;
   const post = req.body;
-  
+
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send("No post with that id");
 
@@ -36,8 +36,21 @@ const updatePost = async (req, res) => {
   res.json(updatedPost);
 };
 
+//delete a post
+const deletePost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("No post with that id");
+
+  await Post.findByIdAndDelete(id);
+
+  res.status(200).send("Post deleted Successfully");
+};
+
 module.exports = {
   getPosts,
   createPost,
   updatePost,
+  deletePost,
 };

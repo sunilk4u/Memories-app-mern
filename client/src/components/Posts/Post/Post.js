@@ -12,9 +12,17 @@ import {
   CardMedia,
   Typography,
 } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../../actions/posts";
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  //handle post delete
+  const handleDelete = () => {
+    dispatch(deletePost(post._id))
+  }
 
   return (
     <Card className={classes.card}>
@@ -57,7 +65,7 @@ const Post = ({ post, setCurrentId }) => {
           Like
           {post.likeCount}
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleDelete}>
           <DeleteIcon fontSize="small" />
           Delete
         </Button>

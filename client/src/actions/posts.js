@@ -20,11 +20,21 @@ export const createPost = (post) => async (dispatch) => {
   }
 };
 
-//Sction creator for update post
+//Action creator for update post
 export const updatePost = (id, post) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
     dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Action creator for delete post
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id);
+    dispatch({ type: "DELETE", payload: id });
   } catch (error) {
     console.log(error);
   }

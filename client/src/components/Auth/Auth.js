@@ -9,18 +9,43 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signin, signup } from "../../actions/auth";
 import useStyles from "./styles";
+
+//intial state for form data
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const classes = useStyles();
+  const [formData, setFormData] = useState(initialState);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //handle form submit
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignUp) {
+      dispatch(signup(formData, navigate));
+    } else {
+      dispatch(signin(formData, navigate));
+    }
+  };
 
   //handle form value change
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   //handle show password
   const handleShowPassword = () => setShowPassword((prev) => !prev);
@@ -43,14 +68,14 @@ const Auth = () => {
             {isSignUp && (
               <>
                 <Input
-                  name="firstname"
+                  name="firstName"
                   label="First name"
                   handleChange={handleChange}
                   autoFocus
                   half
                 />
                 <Input
-                  name="lastname"
+                  name="lastName"
                   label="Last name"
                   handleChange={handleChange}
                   half

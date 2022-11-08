@@ -5,6 +5,16 @@ const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URI}`,
 });
 
+API.interceptors.request.use((req) => {
+  if (localStorage.getItem("profile")) {
+    req.headers.Authorization = `Bearer ${
+      JSON.parse(localStorage.getItem("profile")).token
+    }`;
+  }
+
+  return req;
+});
+
 //fetch all posts
 export const fetchPosts = () => API.get("/posts");
 

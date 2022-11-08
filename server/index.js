@@ -20,7 +20,7 @@ app.use(
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/posts", postRouter);
-app.use("/user", userRouter)
+app.use("/users", userRouter)
 
 //routes
 

@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const db_connect = require("./configs/dbConfig");
 const postRouter = require("./routes/posts");
+const userRouter = require("./routes/users");
 const server_port = process.env.PORT || 5000;
 
 //db config
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/posts", postRouter);
+app.use("/user", userRouter)
 
 //routes
 

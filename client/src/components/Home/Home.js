@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
+  Button,
   Chip,
   Container,
   Grid,
@@ -39,7 +40,7 @@ const Home = () => {
   //handle search key press
   const handleSearchKeyPress = (e) => {
     if (e.key === "Enter") {
-      console.log("search");
+      searchPost();
     }
   };
 
@@ -51,6 +52,14 @@ const Home = () => {
   //handle chip delete
   const handleChipDelete = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
+  //handle search post
+  const searchPost = () => {
+    if (search.trimEnd()) {
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -91,6 +100,14 @@ const Home = () => {
                 label="Search Tags"
                 variant="outlined"
               />
+              <Button
+                onClick={searchPost}
+                className={classes.searchButton}
+                color="primary"
+                variant="contained"
+              >
+                Search
+              </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>

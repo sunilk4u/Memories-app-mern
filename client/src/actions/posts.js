@@ -17,6 +17,15 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+//Action creator for get posts by search
+export const getPostsBySearch = (query) => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPostsBySearch(query);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Action creator for creating a post
 export const createPost = (post) => async (dispatch) => {
   try {

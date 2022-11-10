@@ -12,7 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./styles";
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import Pagination from "../Pagination";
@@ -56,7 +56,8 @@ const Home = () => {
 
   //handle search post
   const searchPost = () => {
-    if (search.trimEnd()) {
+    if (search.trim()) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
     } else {
       navigate("/");
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   AppBar,
+  Chip,
   Container,
   Grid,
   Grow,
@@ -14,6 +15,7 @@ import { getPosts } from "../../actions/posts";
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import Pagination from "../Pagination";
+import ChipInput from "material-ui-chip-input";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -23,6 +25,8 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [currentId, setCurrentId] = useState(null);
+  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState([]);
   const query = useQuery();
   const navigate = useNavigate();
   const page = query.get("page") || 1;
@@ -32,14 +36,31 @@ const Home = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
+  //handle search key press
+  const handleSearchKeyPress = (e) => {
+    if (e.key === "Enter") {
+      console.log("search");
+    }
+  };
+
+  //handle chip add
+  const handleChipAdd = (tag) => {
+    setTags([...tags, tag]);
+  };
+
+  //handle chip delete
+  const handleChipDelete = (tagToDelete) => {
+    setTags(tags.filter((tag) => tag !== tagToDelete));
+  };
+
   return (
     <Grow in>
       <Container maxWidth="xl">
         <Grid
           container
           justifyContent="space-between"
-          alignItems="center"
-          spacing={4}
+          alignItems="stretch"
+          spacing={3}
           className={classes.gridContainer}
         >
           <Grid item xs={12} sm={6} md={9}>
@@ -56,8 +77,19 @@ const Home = () => {
                 variant="outlined"
                 label="Search memories"
                 fullWidth
-                value="TEST"
-                onChange={() => {}}
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+                onKeyPress={handleSearchKeyPress}
+              />
+              <ChipInput
+                style={{ margin: "10px 0" }}
+                value={tags}
+                onAdd={handleChipAdd}
+                onDelete={handleChipDelete}
+                label="Search Tags"
+                variant="outlined"
               />
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />

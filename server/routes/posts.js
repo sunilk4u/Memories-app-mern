@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   getPosts,
+  getPostsBySearch,
   createPost,
   updatePost,
   deletePost,
@@ -8,6 +9,9 @@ const {
 } = require("../controllers/posts");
 const auth = require("../middlewares/auth");
 const router = express.Router();
+
+//search post 
+router.get("/search", getPostsBySearch);
 
 // get all posts
 router.get("/", getPosts);

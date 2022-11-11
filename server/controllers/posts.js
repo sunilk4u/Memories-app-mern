@@ -11,6 +11,21 @@ const getPosts = async (req, res) => {
   }
 };
 
+//get posts by search
+const getPostsBySearch = async (req, res) => {
+  const { searchQuery, tags } = req.query;
+
+  try {
+    const title = new RegExp(searchQuery, "i");
+    const posts = await Post.find({
+      $or: [{ title }, { tags: { $in: tags.split(",") } }],
+    });
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: "post not found" });
+  }
+};
+
 //create a post
 const createPost = async (req, res) => {
   const post = req.body;
@@ -82,4 +97,5 @@ module.exports = {
   updatePost,
   deletePost,
   likePost,
+  getPostsBySearch,
 };

@@ -56,7 +56,7 @@ const Home = () => {
 
   //handle search post
   const searchPost = () => {
-    if (search.trim()) {
+    if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
     } else {
       navigate("/");

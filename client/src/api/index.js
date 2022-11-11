@@ -16,7 +16,7 @@ API.interceptors.request.use((req) => {
 });
 
 //fetch all posts
-export const fetchPosts = () => API.get("/posts");
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 
 //fetchPosts by search
 export const fetchPostsBySearch = (query) =>

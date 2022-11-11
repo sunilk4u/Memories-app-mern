@@ -6,13 +6,17 @@ import {
   DELETE,
   LIKE_POST,
   FETCH_SEARCH,
+  START_LOADING,
+  END_LOADING,
 } from "../constants/actionTypes";
 
 //Action creator for fetching posts
 export const getPosts = (page) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.fetchPosts(page);
     dispatch({ type: FETCH_ALL, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error.message);
   }
@@ -21,10 +25,12 @@ export const getPosts = (page) => async (dispatch) => {
 //Action creator for get posts by search
 export const getPostsBySearch = (query) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const {
       data: { data },
     } = await api.fetchPostsBySearch(query);
     dispatch({ type: FETCH_SEARCH, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }
@@ -33,8 +39,10 @@ export const getPostsBySearch = (query) => async (dispatch) => {
 //Action creator for creating a post
 export const createPost = (post) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.createPost(post);
     dispatch({ type: CREATE, payload: data });
+    dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);
   }

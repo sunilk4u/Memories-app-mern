@@ -33,8 +33,6 @@ const Home = () => {
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
 
-
-
   //handle search key press
   const handleSearchKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -56,7 +54,9 @@ const Home = () => {
   const searchPost = () => {
     if (search.trim() || tags) {
       dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
-      navigate(`/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`)
+      navigate(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       navigate("/");
     }
@@ -111,7 +111,9 @@ const Home = () => {
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Paper elevation={6}>
-              <Pagination page={page} />
+              {!searchQuery && !tags.length && (
+                <Pagination page={page} className={classes.pagination} />
+              )}
             </Paper>
           </Grid>
         </Grid>

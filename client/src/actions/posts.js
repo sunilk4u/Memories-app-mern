@@ -5,6 +5,7 @@ import {
   UPDATE,
   DELETE,
   LIKE_POST,
+  FETCH_SEARCH,
 } from "../constants/actionTypes";
 
 //Action creator for fetching posts
@@ -23,7 +24,7 @@ export const getPostsBySearch = (query) => async (dispatch) => {
     const {
       data: { data },
     } = await api.fetchPostsBySearch(query);
-    console.log(data);
+    dispatch({ type: FETCH_SEARCH, payload: data });
   } catch (error) {
     console.log(error);
   }

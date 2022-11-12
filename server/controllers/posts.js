@@ -1,6 +1,19 @@
 const { mongoose } = require("mongoose");
 const Post = require("../models/post");
 
+//get single post from the database
+const getPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await Post.findById(id);
+
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 //get all posts from the database
 const getPosts = async (req, res) => {
   const { page } = req.query;
@@ -13,13 +26,11 @@ const getPosts = async (req, res) => {
       .sort({ _id: -1 })
       .limit(LIMIT)
       .skip(startIndex);
-    res
-      .status(200)
-      .json({
-        data: posts,
-        currentPage: Number(page),
-        numberOfPages: Math.ceil(total / LIMIT),
-      });
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -112,4 +123,5 @@ module.exports = {
   deletePost,
   likePost,
   getPostsBySearch,
+  getPost,
 };

@@ -6,6 +6,7 @@ const {
   updatePost,
   deletePost,
   likePost,
+  getPost
 } = require("../controllers/posts");
 const auth = require("../middlewares/auth");
 const router = express.Router();
@@ -15,6 +16,9 @@ router.get("/search", getPostsBySearch);
 
 // get all posts
 router.get("/", getPosts);
+
+// get single post
+router.get("/:id", getPost);
 
 // create a post
 router.post("/", auth, createPost);

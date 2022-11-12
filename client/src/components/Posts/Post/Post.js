@@ -74,7 +74,9 @@ const Post = ({ post, setCurrentId }) => {
         title={post.title}
       />
       <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
+        <Typography variant="h6" style={{ textTransform: "capitalize" }}>
+          {post.name}
+        </Typography>
         <Typography variant="body2">
           {moment(post.createdAt).fromNow()}
         </Typography>
@@ -118,7 +120,7 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </Button>
         {user?.result._id === post?.creator && (
-          <Button size="small" color="primary" onClick={handleDelete}>
+          <Button size="small" color="secondary" onClick={handleDelete}>
             <DeleteIcon fontSize="small" />
             Delete
           </Button>

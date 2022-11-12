@@ -50,22 +50,24 @@ export const getPostsBySearch = (query) => async (dispatch) => {
 };
 
 //Action creator for creating a post
-export const createPost = (post) => async (dispatch) => {
+export const createPost = (post, navigate) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
     const { data } = await api.createPost(post);
     dispatch({ type: CREATE, payload: data });
     dispatch({ type: END_LOADING });
+    navigate(`/posts/${data._id}`);
   } catch (error) {
     console.log(error);
   }
 };
 
 //Action creator for update post
-export const updatePost = (id, post) => async (dispatch) => {
+export const updatePost = (id, post, navigate) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(id, post);
     dispatch({ type: UPDATE, payload: data });
+    navigate(`/posts/${data._id}`);
   } catch (error) {
     console.log(error);
   }

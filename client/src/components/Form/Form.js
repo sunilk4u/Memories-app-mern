@@ -4,14 +4,16 @@ import FileBase from "react-file-base64";
 import { TextField, Button, Paper, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, updatePost } from "../../actions/posts";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const post = useSelector((state) =>
-    currentId ? state.posts.find((p) => p._id === currentId) : null
+    currentId ? state.posts.posts.find((p) => p._id === currentId) : null
   );
   const user = JSON.parse(localStorage.getItem("profile"));
+  const navigate = useNavigate()
 
   //populate data in form
   useEffect(() => {
@@ -32,10 +34,10 @@ const Form = ({ currentId, setCurrentId }) => {
 
     if (currentId) {
       dispatch(
-        updatePost(currentId, { ...postData, name: user?.result?.name })
+        updatePost(currentId, { ...postData, name: user?.result?.name }, navigate)
       );
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }));
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
     }
 
     clear();

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useParams, useHistory, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useStyles from "./styles";
 import { getPost, getPostsBySearch } from "../../actions/posts";
 import {
@@ -20,7 +20,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (post) {
@@ -28,7 +28,7 @@ const PostDetails = () => {
         getPostsBySearch({ search: "none", tags: post?.tags.join(",") })
       );
     }
-  }, [post]);
+  }, [post, dispatch]);
 
   if (!post) return null;
 
@@ -112,7 +112,7 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle1">
                     Likes:{likes.length}
                   </Typography>
-                  <img src={selectedFile} width="200px" />
+                  <img src={selectedFile} width="200px" alt="memories" />
                 </div>
               )
             )}

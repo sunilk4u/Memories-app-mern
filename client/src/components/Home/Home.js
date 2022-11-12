@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Button,
-  Chip,
   Container,
   Grid,
   Grow,
@@ -12,7 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import useStyles from "./styles";
-import { getPosts, getPostsBySearch } from "../../actions/posts";
+import { getPostsBySearch } from "../../actions/posts";
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
 import Pagination from "../Pagination";

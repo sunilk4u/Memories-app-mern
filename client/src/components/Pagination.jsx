@@ -12,7 +12,7 @@ const Paginate = ({ page }) => {
 
   useEffect(() => {
     if (page) dispatch(getPosts(page));
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   return (
     <Pagination

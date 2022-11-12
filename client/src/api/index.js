@@ -16,7 +16,7 @@ API.interceptors.request.use((req) => {
 });
 
 //fetch single post
-export const fetchPost = (id) => API.get(`/posts/${id}`)
+export const fetchPost = (id) => API.get(`/posts/${id}`);
 
 //fetch all posts
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
@@ -39,6 +39,10 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 
 //like a post
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
+
+//comment on post
+export const comment = (value, id) =>
+  API.post(`/posts/${id}/commentPost`, { value });
 
 //sign in
 export const signin = (formData) => API.post("/users/signin", formData);

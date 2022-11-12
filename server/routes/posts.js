@@ -6,6 +6,7 @@ const {
   updatePost,
   deletePost,
   likePost,
+  commentPost,
   getPost
 } = require("../controllers/posts");
 const auth = require("../middlewares/auth");
@@ -31,5 +32,8 @@ router.delete("/:id", auth, deletePost);
 
 //like a post
 router.patch("/:id/likepost", auth, likePost);
+
+//like a post
+router.post("/:id/commentPost", auth, commentPost);
 
 module.exports = router;

@@ -116,6 +116,20 @@ const likePost = async (req, res) => {
   res.json(updatedPost);
 };
 
+//comment on post
+const commentPost = async (req, res) => {
+  const { value } = req.body;
+  const { id } = req.params;
+  try {
+    const post = await Post.findById(id);
+    post.comments.push(value);
+    const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true });
+    res.status(201).json(updatedPost);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   getPosts,
   createPost,
@@ -124,4 +138,5 @@ module.exports = {
   likePost,
   getPostsBySearch,
   getPost,
+  commentPost,
 };

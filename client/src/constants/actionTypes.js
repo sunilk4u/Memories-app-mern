@@ -3,6 +3,7 @@ export const FETCH_ALL = "FETCH_ALL";
 export const FETCH_POST = "FETCH_POST";
 export const FETCH_SEARCH = "FETCH_SEARCH";
 export const UPDATE = "UPDATE";
+export const COMMENT = "COMMENT";
 export const DELETE = "DELETE";
 export const LIKE_POST = "LIKE_POST";
 export const AUTH = "AUTH";
